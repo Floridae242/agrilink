@@ -1,0 +1,19 @@
+{
+  "name": "agrilink-monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n FRONTEND,BACKEND -c green,blue \"pnpm --filter frontend dev\" \"pnpm --filter backend dev\"",
+    "build": "pnpm --filter frontend build && pnpm --filter backend build",
+    "lint": "eslint .",
+    "format": "prettier -w ."
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0",
+    "eslint": "^9.9.0",
+    "prettier": "^3.3.3"
+  },
+  "engines": { "node": ">=20.0.0" }
+}
