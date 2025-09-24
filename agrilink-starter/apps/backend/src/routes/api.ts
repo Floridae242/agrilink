@@ -3,6 +3,7 @@ import type { PrismaClient } from '@prisma/client'
 import type { Server } from 'socket.io'
 import { createAuthRoutes } from './auth.js'
 import { createIotRoutes } from './iot.js'
+import { createQaRoutes } from './qa.js'
 import { requireAuth, requireRole, Role } from '../middleware/auth.js'
 
 export default function api(prisma: PrismaClient, io: Server){
@@ -13,6 +14,9 @@ export default function api(prisma: PrismaClient, io: Server){
 
   // IoT routes (API key protected)
   r.use('/iot', createIotRoutes(prisma, io))
+
+  // QA routes (auth protected)
+  r.use('/qa', createQaRoutes(prisma))
 
   // pilot form (public)
   r.post('/pilot', async (req, res)=>{
