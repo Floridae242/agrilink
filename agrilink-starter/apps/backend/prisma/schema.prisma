@@ -8,24 +8,26 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
-  name      String
-  role      String    // FARMER | BUYER | INSPECTOR | ADMIN
-  password  String
-  createdAt DateTime  @default(now())
-  farms     Farm[]
-  sessions  Session[]
+  id            String         @id @default(cuid())
+  email         String         @unique
+  name          String
+  role          String         // FARMER | BUYER | INSPECTOR | ADMIN
+  password      String
+  createdAt     DateTime       @default(now())
+  farms         Farm[]
+  sessions      Session[]
+  qaInspections QaInspection[]
 }
 
 model Farm {
-  id        String   @id @default(cuid())
-  name      String
-  district  String?
-  owner     User     @relation(fields: [ownerId], references: [id])
-  ownerId   String
-  lots      Lot[]
-  createdAt DateTime @default(now())
+  id           String        @id @default(cuid())
+  name         String
+  district     String?
+  owner        User          @relation(fields: [ownerId], references: [id])
+  ownerId      String
+  lots         Lot[]
+  certificates Certificate[]
+  createdAt    DateTime      @default(now())
 }
 
 model Lot {
@@ -37,6 +39,8 @@ model Lot {
   events        Event[]
   shipments     Shipment[]
   sensorDevices SensorDevice[]
+  qaInspections QaInspection[]
+  certificates  Certificate[]
   createdAt     DateTime        @default(now())
 }
 
@@ -77,4 +81,31 @@ model SensorDevice {
   boundLotId String?
   boundLot   Lot?     @relation(fields: [boundLotId], references: [id])
   createdAt  DateTime @default(now())
+}
+
+model QaInspection {
+  id          String   @id @default(cuid())
+  lot         Lot      @relation(fields: [lotId], references: [id])
+  lotId       String
+  inspector   User     @relation(fields: [inspectorId], references: [id])
+  inspectorId String
+  defects     Int      @default(0)
+  grade       String   // A, B, C, REJECT
+  notes       String?
+  images      String?  // JSON array of image URLs
+  createdAt   DateTime @default(now())
+}
+
+model Certificate {
+  id        String    @id @default(cuid())
+  farm      Farm      @relation(fields: [farmId], references: [id])
+  farmId    String
+  lot       Lot?      @relation(fields: [lotId], references: [id])
+  lotId     String?
+  type      String    // GAP, ORGANIC, AGRILINK_CERTIFIED, etc.
+  issuer    String
+  fileUrl   String
+  issuedAt  DateTime
+  expiresAt DateTime?
+  createdAt DateTime  @default(now())
 }
