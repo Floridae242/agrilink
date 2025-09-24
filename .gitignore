@@ -1,0 +1,50 @@
+node_modules
+node_modules
+# node / build
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+uploads/
+uploads/**
+
+# local env / editor
+.env
+**/.env
+*.tsbuildinfo
+
+# prisma local db
+**/prisma/*.db
+**/prisma/*.db-journal
+
+# local firebase cache
+.firebase/
+**/.firebase/
+
+# nested lockfiles (ใช้เฉพาะ root pnpm-lock.yaml)
+agrilink-starter/apps/**/pnpm-lock.yaml
+# build & deps
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+
+# uploads/static local
+uploads/
+uploads/**
+
+# env/secrets (อย่าขึ้นกิต)
+.env
+**/.env
+*.tsbuildinfo
+
+# prisma dev db
+**/prisma/*.db
+**/prisma/*.db-journal
+
+# firebase local
+.firebase/
+**/.firebase/
+
+# nested pnpm lockfiles (ให้เหลือเฉพาะ pnpm-lock.yaml ที่ root)
+agrilink-starter/apps/**/pnpm-lock.yaml

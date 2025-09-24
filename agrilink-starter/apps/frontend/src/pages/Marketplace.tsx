@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardHeader, CardContent } from '@/components/ui/card'
+import { Card, CardHeader, CardContent } from '../components/ui/card'
 
 const demoFarms = [
   { id:'farm-01', name:'Chiang Mai Organic Farm', produce:'Longan', district:'Saraphi', rating:4.8 },

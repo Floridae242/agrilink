@@ -1,13 +1,24 @@
 import 'dotenv/config'
 import express from 'express'
 import http from 'http'
-import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import path from 'path'
 import { Server } from 'socket.io'
 import { PrismaClient } from '@prisma/client'
 import api from './routes/api.js'
+
+// Simple CORS middleware instead of the cors package
+const corsMiddleware = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200)
+  } else {
+    next()
+  }
+}
 
 const app = express()
 const server = http.createServer(app)
@@ -16,7 +27,7 @@ const prisma = new PrismaClient()
 
 // Middlewares
 app.use(helmet())
-app.use(cors())
+app.use(corsMiddleware)
 app.use(express.json())
 app.use(morgan('dev'))
 

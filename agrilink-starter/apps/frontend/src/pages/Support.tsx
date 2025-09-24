@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Card, CardHeader, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+import { Card, CardHeader, CardContent } from '../components/ui/card'
+import Button from '../components/ui/button'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts'
 import { Upload, Download, FileText, AlertCircle, CheckCircle, TrendingUp, TrendingDown } from 'lucide-react'
 
@@ -435,8 +435,7 @@ export default function Support() {
                     <td className="p-2">
                       {certificate.filePath && (
                         <Button
-                          size="sm"
-                          variant="outline"
+                          variant="ghost"
                           onClick={() => downloadCertificate(certificate)}
                         >
                           <Download className="w-4 h-4 mr-1" />

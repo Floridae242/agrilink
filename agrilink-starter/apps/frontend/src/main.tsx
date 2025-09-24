@@ -11,7 +11,7 @@ import Support from './pages/Support'
 import RequestPilot from './pages/RequestPilot'
 import QRPublic from './pages/QRPublic'
 import Dashboards from './pages/Dashboards'
-import { Login } from './pages/Login'
+import Login from './pages/Login'
 import { AuthProvider } from './lib/auth'
 import { Protected } from './components/Protected'
 

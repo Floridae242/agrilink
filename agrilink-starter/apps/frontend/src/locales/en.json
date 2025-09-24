@@ -1,0 +1,16 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "loading": "Loading...",
+    "noData": "No data yet",
+    "errorGeneric": "Something went wrong. Please try again.",
+    "saved": "Saved successfully"
+  },
+  "farmer": {
+    "createLot": "Create Lot",
+    "addEvent": "Add Event",
+    "printQR": "Print QR"
+  }
+}

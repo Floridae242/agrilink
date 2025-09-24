@@ -1,5 +1,111 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand Green Palette */
+    --green-50: #f0fdf4;
+    --green-100: #dcfce7;
+    --green-500: #22c55e; /* Primary brand */
+    --green-600: #16a34a; /* Hover/Active */
+    --green-700: #15803d; /* Text/Icons */
+    --green-900: #14532d; /* Headings */
+    
+    /* Background gradients */
+    --brand-gradient: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    --hero-gradient: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    
+    /* Status colors */
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --error: #ef4444;
+    --info: #3b82f6;
+  }
+}
+
+@layer components {
+  /* Brand gradients */
+  .bg-brand-gradient {
+    background: var(--brand-gradient);
+  }
+  
+  .bg-hero-gradient {
+    background: var(--hero-gradient);
+  }
+  
+  /* Button variants */
+  .btn-primary {
+    @apply bg-green-500 hover:bg-green-600 active:bg-green-700 
+           disabled:bg-gray-300 disabled:cursor-not-allowed
+           focus:ring-2 focus:ring-green-500 focus:ring-offset-2
+           px-4 py-2 rounded-md font-medium text-white transition-colors;
+  }
+  
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 active:bg-gray-100
+           border border-gray-300 text-gray-700
+           focus:ring-2 focus:ring-green-500 focus:ring-offset-2
+           px-4 py-2 rounded-md font-medium transition-colors;
+  }
+  
+  /* Status badges */
+  .badge-success {
+    @apply bg-green-100 text-green-800 border border-green-200 px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .badge-warning {
+    @apply bg-yellow-100 text-yellow-800 border border-yellow-200 px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .badge-danger {
+    @apply bg-red-100 text-red-800 border border-red-200 px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .badge-info {
+    @apply bg-blue-100 text-blue-800 border border-blue-200 px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  /* Focus management */
+  .focus-visible {
+    @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+  }
+  
+  /* Typography */
+  .heading-1 {
+    @apply text-3xl md:text-4xl font-bold text-gray-900;
+  }
+  
+  .heading-2 {
+    @apply text-2xl md:text-3xl font-semibold text-gray-900;
+  }
+  
+  .heading-3 {
+    @apply text-xl font-semibold text-gray-900;
+  }
+  
+  .body-text {
+    @apply text-base leading-6 text-gray-700;
+  }
+  
+  .caption-text {
+    @apply text-sm text-gray-600;
+  }
+  
+  /* Tap targets for mobile */
+  .tap-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  /* Loading states */
+  .skeleton {
+    @apply animate-pulse bg-gray-200 rounded;
+  }
+  
+  /* Container styles */
+  .container-responsive {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
 :root { color-scheme: light; }
 * { outline-color: theme('colors.brand.500'); }

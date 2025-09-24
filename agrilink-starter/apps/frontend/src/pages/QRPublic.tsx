@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Card, CardHeader, CardContent } from '@/components/ui/card'
+import { Card, CardHeader, CardContent } from '../components/ui/card'
 
 export default function QRPublic(){
   const { lotId } = useParams()

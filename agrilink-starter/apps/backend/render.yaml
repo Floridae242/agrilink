@@ -4,13 +4,27 @@ services:
     rootDir: apps/backend
     env: node
     plan: free
-    buildCommand: pnpm install && pnpm build && pnpm prisma generate
+    buildCommand: |
+      pnpm install && 
+      pnpm build && 
+      npx prisma generate && 
+      npx prisma migrate deploy && 
+      npx prisma db seed
     startCommand: pnpm start
     healthCheckPath: /healthz
     envVars:
       - key: DATABASE_URL
         sync: false
       - key: JWT_SECRET
-        sync: false
+        value: agrilink-super-secret-jwt-key-production-2025
+      - key: IOT_MASTER_KEY
+        value: AGRILINK_IOT_MASTER_KEY_2025_PRODUCTION
+      - key: NODE_ENV
+        value: production
       - key: PORT
         value: 10000
+
+databases:
+  - name: agrilink-postgres
+    databaseName: agrilink
+    user: agrilink

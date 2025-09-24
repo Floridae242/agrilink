@@ -3,7 +3,8 @@ import type { PrismaClient } from '@prisma/client'
 import type { Server } from 'socket.io'
 import { createAuthRoutes } from './auth.js'
 import { createIotRoutes } from './iot.js'
-import { createQaRoutes } from './qa.js'
+import qaRoutes from './qa.js'
+import { seedQAData } from './seed.js'
 import { requireAuth, requireRole, Role } from '../middleware/auth.js'
 
 export default function api(prisma: PrismaClient, io: Server){
@@ -16,7 +17,7 @@ export default function api(prisma: PrismaClient, io: Server){
   r.use('/iot', createIotRoutes(prisma, io))
 
   // QA routes (auth protected)
-  r.use('/qa', createQaRoutes(prisma))
+  r.use('/qa', qaRoutes)
 
   // pilot form (public)
   r.post('/pilot', async (req, res)=>{
@@ -55,6 +56,11 @@ export default function api(prisma: PrismaClient, io: Server){
     io.of('/realtime').emit('sensor:update', { lotId: req.params.id, ...req.body })
     res.json(e)
   })
+
+  // Development seed endpoint
+  if (process.env.NODE_ENV !== 'production') {
+    r.post('/seed/qa', seedQAData)
+  }
 
   return r
 }

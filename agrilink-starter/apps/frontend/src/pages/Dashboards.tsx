@@ -1,5 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
+import KpiCard from '../components/data/KpiCard'
+import { DataTable, Column } from '../components/data/DataTable'
+import Modal from '../components/common/Modal'
+import CreateLotView from './Farmer/CreateLotView'
 
 function RoleNav(){
   return (
@@ -19,11 +23,38 @@ const Block = ({title, children}:{title:string, children:React.ReactNode}) => (
   </div>
 )
 
+type LotRow = { lot: string; produce: string; status: string; updated: string }
+
 function Farmer(){
-  return (<div className="grid md:grid-cols-2 gap-4">
-    <Block title="My Lots">Create & manage produce lots. Print QR.</Block>
-    <Block title="Quality">Track defects & Brix.</Block>
-  </div>)
+  const [open, setOpen] = useState(false)
+  const lots: LotRow[] = []
+  const columns: Column<LotRow>[] = [
+    { key: 'lot', header: 'Lot' },
+    { key: 'produce', header: 'Produce' },
+    { key: 'status', header: 'Status' },
+    { key: 'updated', header: 'Last Updated' },
+  ]
+
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <KpiCard label="My Lots" value={0} />
+        <KpiCard label="Avg Temp" value={'—'} />
+        <KpiCard label="Avg Hum" value={'—'} />
+        <KpiCard label="Alerts" value={0} />
+      </div>
+
+      <div className="flex justify-between items-center">
+        <h3 className="font-semibold text-lg">My Lots</h3>
+        <button onClick={() => setOpen(true)} className="px-3 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">Create Lot</button>
+      </div>
+      <DataTable columns={columns} data={lots} />
+
+      <Modal title="Create Lot" open={open} onClose={() => setOpen(false)}>
+        <CreateLotView onDone={() => setOpen(false)} />
+      </Modal>
+    </div>
+  )
 }
 
 function Buyer(){
